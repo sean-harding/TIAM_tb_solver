@@ -1,2 +1,8 @@
 # TIAM_tb_solver
-Impurity solver and spectral function methods for two-orbital Anderson model
+This repository contains a truncated basis impurity solver and spectral function methods for the two-orbital Anderson model. This version of the code is parallelized to run on a quad core machine; the number of cores to run on can be adjusted internally.
+
+**main_para.py** is the main module, and when run using python3 will initialize the TIAM problems with parameters defined in the file. U,J,U2 and hybFunction are required to set up the model. main_para then calls a function within **solver.py** that efficiently finds the lowest eigenvalue eigenvector using a method I have developed.
+
+The results generated in **main_para.py** are saved to file, and can be read into **spectral.py** which finds the spectral function. This measures the density of eigenstates with a given eigenvalue relative to the eigenvalue obtained in **main_para.py**, which is the zero point. The spectral function is computed as a linear combination of chebyshev polynomials, and the method implemented here is to compute the weights within this expansion and plot the resultant function. A proceedure of linearly predicting the moments of the high frequency polynomials from the weights of the low frequency ones is used to remove artificial high-frequency noise associated with the construction of the model.
+
+**operators_para.py** contains functions that build the large sparse matrices that are used in the package. **helperFunctions.py** contains utility functions that are used throughout the package, including a hashing algorithm that allows us to determine which matrix elements in **operators_para.py** are nonzero, and avoid having to compute matrix elements which would evaluate to zero. **schmidtNew.py** contains some functions that find an optimal basis choice for the problem, which facilitates the method employed in **solver.py**

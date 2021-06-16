@@ -1,6 +1,8 @@
 #Contains helper functions to map a many-body bitstring to a hash index and back again
 #Author: Sean M. Harding (University of Bristol,2018)
 
+#It might be useful to move some of these into C++, especially when the cluster analysis code is written
+
 import scipy as sp
 from math import sqrt
 def binomial(N):
